@@ -1,0 +1,6 @@
+char lower_case(char c) {
+	const int lcase = 32;
+	if (c >= 'A' && 'Z' >= c) c += lcase;
+	if (c >= 'À' && 'ß' >= c) c += lcase;
+	return c;
+}

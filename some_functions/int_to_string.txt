@@ -1,0 +1,28 @@
+
+string int_to_string(int um) {
+	string number;
+	if (um < 0) { number += '-'; um *= -1; }
+
+	int scale{0};
+	int i{um};
+	while (i / 10 != 0){
+		i /= 10;
+		++scale;
+	}
+
+	int narrow{ 0 };
+	while(scale>-1) {
+		i = um;
+
+		for(int y {scale}; y>0; y-=1) i /= 10 ; //each time uncover another decimal. direction- left to right
+		
+		i -= narrow ;  // i == right-end uncovered decimal
+		
+		number += char(i+'0');
+		//
+		narrow += i; 
+		narrow *= 10; // each time left 0(narrowing window) at the end
+		scale -= 1;
+	}
+	return number;
+}

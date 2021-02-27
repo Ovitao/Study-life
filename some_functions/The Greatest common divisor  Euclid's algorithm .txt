@@ -1,0 +1,67 @@
+// The Greatest common divisor : Euclid's algorithm 
+
+
+
+#include "../../Custom Header Files/std_lib_facilities.h"
+
+/--------------------------------------------------------------------------------
+//greatest_common_divisor
+int gcd(int a, int b)
+{
+
+	if (a == 0 && b == 0) error("GCD: both arguments are 0.");
+
+		a = abs(a);
+		b = abs(b);
+		if (a < b) swap(a, b);
+		if (b==0) return a;
+
+	int y = 1;
+	while (y > 0) { 
+		y = a % b;   
+		a = b;
+		b = y;
+	}
+return a;
+}
+
+/------------------------------------------------------------------------------------
+
+
+
+
+
+// The First testing version
+ // !!! Negative argument" Don't know what to do yet.
+// post-condtion - checks on the % of the arguiment (before and after division).
+void check(int pre_a, int pre_b, int a, double pre_r);
+
+
+int greatest_common_divisor(int a, int b)
+{
+	
+	if (a < 0 || b < 0) error("greatest_common_divisor(). Negative argument");
+	if (a < b) swap(a, b); 
+
+	int pre_a = a;							
+	int pre_b = b;							
+	double pre_r = double(a) / (a + b);		//  %
+
+	int y = 1;
+	while (y > 0) { 
+		y = a % b;   
+		a = b;
+		b = y;
+	}
+
+	 check ( pre_a,  pre_b,  a,  pre_r);		
+	
+return a;
+}
+
+void check ( int pre_a, int pre_b, int a, double pre_r){
+	int aft_a = pre_a / a;
+	int aft_b = pre_b / a;
+	double aft_r = (double)aft_a / (aft_a + aft_b);
+	if (aft_r != pre_r) error("greatest_common_divisor(): \nPre and post ratio of the arguiments are not equal!\n", " !FATAL ERROR!\n");
+}

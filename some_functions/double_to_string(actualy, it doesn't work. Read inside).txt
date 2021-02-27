@@ -1,0 +1,48 @@
+//doesn't work as it expected. A double value have,far beyond point, some additional value... 
+//So dealing with it gives unreasonable results. For example. double(0) != int(0). 
+
+string double_to_string(double um) {
+	string number;
+	if (0 > um) { number += '-'; um *= -1; }
+
+	double i{ um };
+	while (i >= 1)  i /= 10;
+		
+	double scale{ i };
+	while (um > scale) {
+		scale *= 10;
+
+		i -=  int(i);
+		i *= 10;
+		//cout << "\ni=" <<i<<']';
+		number += char(int(i) + '0');
+				
+	}
+	i -= int(i);
+
+	if (i == 0) return number;  
+
+	number += '.';
+	//cout << "\ni=" << i << ';';
+
+
+	while (i > int(i)) {
+		i -= int(i);
+		i *= 10;
+		//cout << "\ni,=" << i << ';';
+
+		number += char(int(i) + '0');
+	}
+	return number;
+}
+//////////////use
+while (true) try {
+	/*
+cout << "\ndouble_to_string: ";
+double t; cin >> t;
+cout << '\n'<< double_to_string(t);
+cout << "\nint_to_string: ";
+cout << int_to_string(t); ;
+
+*/
+}

@@ -1,0 +1,14 @@
+//The sequence should reflect growing patterns in real world :)   
+Fibonacci siquence. 
+-----------------
+//This was my learning expirianse, how to calculate Ratio betweeen given numbers.
+    The Greatest common divisor.  Euclid's algorithm .
+-----------------
+//I created this for fun :3
+   string to double
+   int_to_string
+   double_to_string (actualy, it doesn't work. Read inside)
+-----------------
+// revers string and vector functions 
+ revers
+-----------------

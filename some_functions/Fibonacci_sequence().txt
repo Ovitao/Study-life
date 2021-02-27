@@ -1,0 +1,40 @@
+
+//allow to change the first and second digits in secuence. and size. take empty vector.
+//[1] [1] [2] [3]
+vector <int> Fibonacci_sequence() {
+	int p = 0;
+	int n = 1;
+	int next_number = 1;
+	vector <int> sequence{ 1 };
+	while (next_number > 0) {//int fit check
+		sequence.push_back(next_number);
+		next_number = sequence[p] + sequence[n];
+		++p; ++n;
+	}
+	return sequence;
+}
+
+
+
+
+//allows to change the first and second digits in secuence. and size. take empty vector.
+void fibonacci(int first, int second, vector <int>& sequence, int n_size)
+{
+	if (!sequence.empty()) error("sequence already defined.\n");
+	if (n_size < 0) error("can not define. Empty sequence.\n");
+	if (n_size == 0) { sequence = { 1 }; return; }
+	if (n_size == 1) { sequence = { first }; return; }
+
+	if (first == 0 && second == 0) { sequence = { 0 }; return; }
+
+	sequence = { first, second };
+	int next = first + second;
+	int last = sequence.size() - 1;
+
+	while (sequence.size() < n_size && next == ( double(sequence[last]) + double(sequence[last - 1]) ))//int fit check
+	{
+		sequence.push_back(next);
+		++last;
+		next = sequence[last - 1] + sequence[last];
+	}
+}

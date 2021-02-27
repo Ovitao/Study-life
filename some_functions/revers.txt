@@ -1,0 +1,67 @@
+// it makes 12345 from 54321
+//string. vecror
+// here is some revers functions 
+
+void revers_string(string& s) {
+	if (s.size() == 1 || s.size() == 0) return ;
+	char hold;
+	for (int i = 0; i <= (s.size() - i - 1); ++i) {
+		hold = s[i];
+		s[i] = s[s.size() - i - 1];
+		s[s.size() - i - 1] = hold;
+	}
+	return ;
+}
+
+string revers_new_string(string s) {
+	if (s.size() == 1 || s.size() == 0) return s;
+	char hold;
+	for (int i = 0; i <= (s.size() - i - 1); ++i) {
+		hold = s[i];
+		s[i] = s[s.size() - i - 1];
+		s[s.size() - i - 1] = hold;
+	}
+	return s;
+}
+
+vector<int> revers_new_vector(vector<int> s) {
+	if (s.size() == 1 || s.size() == 0) return s;
+	int hold;
+	for (int i = 0; i <= (s.size() - i - 1); ++i) {
+		hold = s[i];
+		s[i] = s[s.size() - i - 1];
+		s[s.size() - i - 1] = hold;
+	}
+	return s;
+}
+void revers_vector(vector<int>& s) {
+	if (s.size() == 1 || s.size() == 0) return;
+	int hold;
+	for (int i = 0; i <= (s.size() - i - 1); ++i) {
+		hold = s[i];
+		s[i] = s[s.size() - i - 1];
+		s[s.size() - i - 1] = hold;
+	}
+	return;
+}
+
+vector<string> revers_new_vector(vector<string> s) {
+	if (s.size() == 1 || s.size() == 0) return s;
+	string hold;
+	for (int i = 0; i <= (s.size() - i - 1); ++i) {
+		hold = s[i];
+		s[i] = s[s.size() - i - 1];
+		s[s.size() - i - 1] = hold;
+	}
+	return s;
+}
+void revers_vector(vector<string>& s) {
+	if (s.size() == 1 || s.size() == 0) return;
+	string hold;
+	for (int i = 0; i <= (s.size() - i - 1); ++i) {
+		hold = s[i];
+		s[i] = s[s.size() - i - 1];
+		s[s.size() - i - 1] = hold;
+	}
+	return;
+}
