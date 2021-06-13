@@ -3,12 +3,15 @@
 	 Simple calculator
 
 	Revision history:
-		Revised by Tao October 2021
-	
+		Revised by Tao June 2021 
+							Roman_int added
+
+		Revised by Tao October 2020
+		
 	
 	Modifications: Binary sistem has set up
 	
-	
+			
 			This program implements a basic expression calculator.
 			Variables and Constants are implemented.
 
@@ -55,6 +58,7 @@ Primary:
 	Number
 	Simbol
 	num_system_key literal
+	Romain_int_key literal
 	'-' Primary
 	'+' Primary
 	'(' Expression ')'
@@ -70,12 +74,17 @@ Num_system literal
 	Binary_key
 	Hexadecimal_key
 	Octal_key
+
+Romain int literal
+	Romain_int_key (rom)
 --------------------------------------
 
 
 
 	input from cin. through the "Token_stream" called "ts".
 	Variables and Constants implemented by "Simbol_table" called "st".
+
+
 
 	The Num_system doesn't have negative numbers yet
 	doesn't handled double simbols and overflow. 
@@ -84,13 +93,14 @@ Num_system literal
 
 */
 
-#include "Costom Header Files/std_lib_facilities.h"
-#include "Costom Header Files/token.h"
-#include  "source/constants.cpp"
-#include  "Costom Header Files/Numeric.h"
-#include  "Costom Header Files/Simbol.h"
-
+#include "Custom Header Files/std_lib_facilities.h"
+#include "Custom Header Files/token.h"
+#include "Custom Header Files/Simbol.h"
+#include "Custom Header Files/Numeric.h"
+#include "Custom Header Files/Roman_int.h"
+#include "constants.cpp"
 //---------------------------------------------------------------------
+Roman_int ri;
 
 Simbol s;
 
@@ -104,7 +114,7 @@ void clean_up_mess(Token_stream& ts){
 	ts.ignore(print);
 }
 
-double expression(Token_stream& ts);
+double expression(Token_stream&);
 double ft(double );
 
 //---------------------------------------------------------------------
@@ -127,13 +137,17 @@ double primary(Token_stream& ts)
 		return   primary(ts);
 	case number: 
 		return t.value;
-	case name:
+	case name: //varibles and constants
 		return st.get(t.name);
 	case hexadecimal:
 	case binary:
 	case octal:
 		return ns.get_decimal_from_literal(t.kind);
-	default:
+	case roman_int:
+		if (cin >> ri)
+			return ri.as_int();
+		else error("romain_int expected");
+	default: 
 		cin.unget();
 		error("primary expected");
 	}
@@ -366,11 +380,11 @@ try {
 	intro();
 	
 	//------===========================
-	create_list();
+
 	st.declare("pi", 3.1415926535, constant);
 	st.declare("e", 2.7182818284, constant);
 	
-	st.fill_table();
+	//st.fill_table();
 	
 	
 	//------===========================

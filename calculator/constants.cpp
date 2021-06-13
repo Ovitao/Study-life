@@ -2,7 +2,7 @@
 
 //Simple calculator
 
-#include "Costom Header Files/std_lib_facilities.h"
+#include "Custom Header Files/std_lib_facilities.h"
 
 //Numerical_sysem  Key words
 static const string Binary_key{ "bin" }; //"bin"
@@ -10,6 +10,9 @@ static const string Hexa_key = "hex";  // "hex"
 static const string Octa_key = "oct";//"oct"
 static const string Dec_key = "dec"; //"dec"
 static const string convert_key = "to"; //"to"
+//---------------------------------------------------------------------
+//roman_int
+static const string  roman_int_key = "rom";//"rom"
 //---------------------------------------------------------------------
 
 //Simbol table Key words
@@ -32,6 +35,7 @@ static const char name = 'n';            //t.kind == name means name Token
 static const char quit = 'q';            //t.kind == quit means quit Token
 static const char assign = 'a';          //t.kind == assign means assign Token
 static const char constant = 'c';		  // represents a constant . 
+static const char roman_int = 'R';
 static const char hexadecimal = 'X';
 static const char octal = 'O';
 static const char decimal = 'D';

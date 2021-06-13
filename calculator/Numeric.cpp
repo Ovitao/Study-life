@@ -3,24 +3,15 @@
 
 
 
-#include  "Costom Header Files/Numeric.h"
-#include "Costom Header Files/token.h"
-#include  "constants.cpp"
+#include "Custom Header Files/Numeric.h"
+#include "Custom Header Files/token.h"
+#include "constants.cpp"
+#include "Custom Header Files/Other.h"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-string Numerical_sysem::get_literal_from_decimal(double d) {
+//-------------------------------------------------------------------------------------------------------------------------------
+string Numerical_sysem::get_literal_from_decimal(double d) 
+{
 //works with rational positive numbers
 //the double for the big numbers
 	Token_stream ts(cin);
@@ -39,9 +30,12 @@ string Numerical_sysem::get_literal_from_decimal(double d) {
 		break;
 	}
 }
-double Numerical_sysem::get_decimal_from_literal(char c) {
+//-------------------------------------------------------------------------------------------------------------------------------
+
+double Numerical_sysem::get_decimal_from_literal(char c) 
+{
 	//works with rational positive numbers
-//the double for the big numbers
+	//the double for the big numbers
 	char nl;
 	string literal_number;
 	while (cin.get(nl) && islatin(nl) && isspace(nl) && nl != print);
@@ -66,17 +60,10 @@ double Numerical_sysem::get_decimal_from_literal(char c) {
 	}
 }
 
-string revers_string(string& s) {
-	if (s.size() == 1 || s.size() == 0) return s;
-	char hold;
-	for (int i = 0; i <= (s.size() - i - 1); ++i) {
-		hold = s[i];
-		s[i] = s[s.size() - i - 1];
-		s[s.size() - i - 1] = hold;
-	}
-	return s;
-}
-double Numerical_sysem::octal_to_decimal(string octal) {
+//-------------------------------------------------------------------------------------------------------------------------------
+
+double Numerical_sysem::octal_to_decimal(string octal) 
+{
 	//works with rational positive numbers
 	//the double is for the big numbers
 	if (octal.size() == 1 && octal == "0") return 0;
@@ -94,7 +81,10 @@ double Numerical_sysem::octal_to_decimal(string octal) {
 	}
 	return result;
 }
-double Numerical_sysem::hexa_to_decimal(string hexa) {
+//-------------------------------------------------------------------------------------------------------------------------------
+
+double Numerical_sysem::hexa_to_decimal(string hexa) 
+{
 	//works with positive rational numbers
 	//the double is for the big numbers
 	if (hexa.size() == 1 && hexa == "0") return 0;
@@ -134,7 +124,10 @@ double Numerical_sysem::hexa_to_decimal(string hexa) {
 
 	return result;
 }
-double Numerical_sysem::binary_to_decimal(string binary) {
+//-------------------------------------------------------------------------------------------------------------------------------
+
+double Numerical_sysem::binary_to_decimal(string binary)
+{
 	//works with positive rational numbers
 	//the double is for the big numbers
 	double d;
@@ -153,9 +146,11 @@ double Numerical_sysem::binary_to_decimal(string binary) {
 	}
 	return result;
 }
-string Numerical_sysem::decimal_to_hexa(double decimal) {
+//-------------------------------------------------------------------------------------------------------------------------------
+string Numerical_sysem::decimal_to_hexa(double decimal) 
 	//works with positive rational numbers
 	//the double is for the big numbers
+{
 	narrow_cast<int>(fmod(decimal, 16));//is it a rational number
 	if (decimal == 0) return "0";
 	if (decimal < 0) error("decimal to hexa: out of range.\n");
@@ -198,7 +193,10 @@ string Numerical_sysem::decimal_to_hexa(double decimal) {
 	}
 	return revers_string(hexa);
 }
-string Numerical_sysem::decimal_to_octal(double decimal) {
+//-------------------------------------------------------------------------------------------------------------------------------
+
+string Numerical_sysem::decimal_to_octal(double decimal) 
+{
 	//works with positive rational numbers
 	//the double is for the big numbers
 	narrow_cast<int>(fmod(decimal, 16));//is it a rational number
@@ -223,7 +221,10 @@ string Numerical_sysem::decimal_to_octal(double decimal) {
 	octa = revers_string(octa);
 	return octa;
 }
-string Numerical_sysem::decimal_to_binary(double decimal) {
+//-------------------------------------------------------------------------------------------------------------------------------
+
+string Numerical_sysem::decimal_to_binary(double decimal) 
+{
 	//works with positive rational numbers
 	//the double is for the big numbers
 	narrow_cast<int>(fmod(decimal, 16)); //is it a rational number
@@ -256,3 +257,4 @@ string Numerical_sysem::decimal_to_binary(double decimal) {
 	while (binary.size() < size) binary += '0';
 	return binary;
 }
+//-------------------------------------------------------------------------------------------------------------------------------

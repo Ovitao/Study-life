@@ -2,14 +2,23 @@
 
 
 
-#include "Costom Header Files/std_lib_facilities.h"
-#include "Costom Header Files/Other.h"
+#include "Custom Header Files/std_lib_facilities.h"
+#include "Custom Header Files/Other.h"
 
 
 
+string revers_string(string& s) {
+	if (s.size() == 1 || s.size() == 0) return s;
+	char hold;
+	for (int i = 0; i <= (s.size() - i - 1); ++i) {
+		hold = s[i];
+		s[i] = s[s.size() - i - 1];
+		s[s.size() - i - 1] = hold;
+	}
+	return s;
+}
 
-
-char lc(char c)
+char lc(char c) //low case
 {
 	const int lcase = 32;
 	if (c >= 'A' && 'Z' >= c) c += lcase;

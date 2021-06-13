@@ -1,24 +1,8 @@
 
 
-#include  "Costom Header Files/Simbol.h"
-#include "Costom Header Files/Other.h"
-#include  "constants.cpp"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "Custom Header Files/Simbol.h"
+#include "Custom Header Files/Other.h"
+#include "constants.cpp"
 
 //---------------------------------------------------------------------
 // to get already defined variable or constant
@@ -55,20 +39,44 @@ bool Simbol_table::is_declared(string s)
 		if (table[i].name == s) return true;
 	return false;
 }
+
 //---------------------------------------------------------------------
 //create a Constant with the 'name' and the 'value'
 double Simbol_table::declare(string s, double d, bool c)
 {
-	
 	if (is_declared(s)) error("Name already declared ", s);
 
-	Simbol newsimbol{ s, d, bool(constant )};
+	table.push_back(Simbol(s, d, constant));
+
+	return d;
+}
+
+//---------------------------------------------------------------------
+//create a Variable
+double Simbol_table::declare(string s, double d)
+{
+	if (is_declared(s)) error("Name already declared ", s);
+
+	table.push_back(Simbol(s, d));
+
+	return d;
+}
+/*
+//---------------------------------------------------------------------
+//create a Constant with the 'name' and the 'value'
+double Simbol_table::declare(string name, double value, bool c)
+{
+	if (is_declared(name)) error("Name already declared ", name);
+	static int t{};
+	
+	Simbol newsimbol{ name, value, bool(constant )};
 	table.push_back(newsimbol);
 
-	ofstream ofs{ "literal_numbers.txt" };
+	ofstream ofs;
+	ofs.open("literal_numbers.txt", ios_base::out);
 	if (!(ofs << newsimbol << '\n') && !ofs.eof())
-			error("Can't open the literal_numbers.txt file for writing declared constant.\n");
-	return d;
+		error("Can't open the literal_numbers.txt file for writing declared constant.\n");
+	return value;
 }
 
 //---------------------------------------------------------------------
@@ -79,35 +87,59 @@ double Simbol_table::declare(string s, double d)
 	Simbol newsimbol{ s, d };
 	table.push_back(newsimbol);
 
-	ofstream ofs{ "literal_numbers.txt" };
+	ofstream ofs;
+	ofs.open("literal_numbers.txt", ios_base::out);
 	if (!(ofs << newsimbol << '\n') && !ofs.eof())
 		error("Can't write to literal_numbers.txt.\n");
 	return d;
 }
+//---------------------------------------------------------------------
+
 void Simbol_table::fill_table()
 {
-	ifstream ifs{ "literal_numbers.txt" };
+	ifstream ifs;
+	ifs.open("literal_numbers.txt", ios_base::in);
+	if (!ifs) error("fill_table(): can't open literal_numbers.txt");
+
 	for (Simbol s; ifs >> s; table.push_back(s));
+
 	if(!ifs && !ifs.eof()) error("Can't read literal_numbers.txt.\n");
 	//not yet return ifs
 }
-//starts first in the program, if there is no file it will create the new
-void create_list()
-{
-	static fstream fs{ "literal_numbers.txt" };
-	if (!fs) static fstream fs("literal_numbers.txt");
+//---------------------------------------------------------------------
 
-};
 ostream& operator<<(ostream& os, const Simbol &s) 
-//name=val[is_const]
+//name val const
+//name val not_const
 {
-	char c;
-	if (s.constant) c = 'c'; else c = 'n';
-	os << s.name << '=' << s.value << '[' << c << ']';
-	return os;
+	string cc;
+	if (s.constant) cc = "const"; 
+	else cc = "not_const";
+	return os << s.name << ' ' << s.value << ' ' << cc;
+
 }
-istream& operator>>(istream& is, Simbol& s) 
-//name=val[is_const]
+//---------------------------------------------------------------------
+
+//---------------------------------------------------------------------
+
+ifstream& operator>>(ifstream& is, Simbol& s)
+//name val const
+//name val not_const
+{
+	string name, v;
+	double val;
+
+	if (!(is >> name >> val >> v)) error("bad Simbol reading");
+
+		if (v=="const") s = { name, val, true };
+	else 
+		if (v == "not_const") s = { name,val };
+	else error("bad Simbol const reading");
+		return is;
+}
+//---------------------------------------------------------------------
+
+/*name=val[is_const]
 {
 	string name, v;
 	char c;
@@ -138,4 +170,6 @@ istream& operator>>(istream& is, Simbol& s)
 	s = { name,val,cnst };
 	return is;
 }
+*/
+
 //---------------------------------------------------------------------
