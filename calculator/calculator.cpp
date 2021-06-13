@@ -97,10 +97,8 @@ Romain int literal
 #include "Custom Header Files/token.h"
 #include "Custom Header Files/Simbol.h"
 #include "Custom Header Files/Numeric.h"
-#include "Custom Header Files/Roman_int.h"
 #include "constants.cpp"
 //---------------------------------------------------------------------
-Roman_int ri;
 
 Simbol s;
 
@@ -143,10 +141,6 @@ double primary(Token_stream& ts)
 	case binary:
 	case octal:
 		return ns.get_decimal_from_literal(t.kind);
-	case roman_int:
-		if (cin >> ri)
-			return ri.as_int();
-		else error("romain_int expected");
 	default: 
 		cin.unget();
 		error("primary expected");

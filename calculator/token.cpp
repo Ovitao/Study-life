@@ -75,7 +75,6 @@ Token Token_stream::key_word(char ch) {
 	if (s == quit_key) return Token(quit); //  off the program.
 	if (s == const_decl_key) return Token(constant); // used with decl_key
 	if (s == convert_key) return Token(convert); // run get_decimal_from(); . include: decimal_to_octal(); decimal_to_hexa(); decimal_to_binary();
-	if (s == roman_int_key) return Token(roman_int);
 	//  
 	while (cin.get(c) && islatin(c) && isalpha(c) || isdigit(c) || c == '_') s += c;
 	cin.unget();

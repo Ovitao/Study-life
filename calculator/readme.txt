@@ -3,6 +3,4 @@ As an exercise to improve the program, I have developed  the Number System conve
 that supports Binary, Hexadecimal, Decimal, and Octal number systems.
 Inside the program there is Help description that may be selected with menu item .
 
-Added: Romain_int
-
 The main () is in "calculator.cpp"
