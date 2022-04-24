@@ -1,48 +1,54 @@
-//doesn't work as it expected. A double value have,far beyond point, some additional value... 
-//So dealing with it gives unreasonable results. For example. double(0) != int(0). 
+/*
+doesn't work as it expected. A double value have,far beyond point, some additional value... 
+ So dealing with it gives unreasonable results.For example. double(0) != int(0).
+And when adding, say 0.01 from -2 to 3 each turn. there is some info loss to the double and as a result (by rounding up) double(3) == int(2)
+*/
 
-string double_to_string(double um) {
+string double_to_string(double um) 
+{
 	string number;
 	if (0 > um) { number += '-'; um *= -1; }
 
-	double i{ um };
-	while (i >= 1)  i /= 10;
+	double n{ um };
+	while (n >= 10.0)  n /= 10;  // move point to the max left 341.8 becomes 3.418
+	
+	{	// integer part ----------------------------------
+	double um2{ n }; // pattern. scale um2 along with changing and scaling n
+	while (um2 <= um) {  // until 3.418 becomes 341.8 again (and more). until we have integer part of the original number to add
 		
-	double scale{ i };
-	while (um > scale) {
-		scale *= 10;
+		number += static_cast<char>(n )+ '0'; // take integer part of n
+		//cout << "n==" << static_cast<int>(n) <<' '<< char(n) + '0' << ' ' << char(n) + 48 << ' ' << n << ' ' << um2 << "]\n";
 
-		i -=  int(i);
-		i *= 10;
-		//cout << "\ni=" <<i<<']';
-		number += char(int(i) + '0');
-				
+		n -= int(n); // remove integer part. make 0.418 from 3.418
+		n *= 10.0;  // move point. make 4.18 from 0.418
+		um2 *= 10.0; // move point. make 34.18 from 3.418
 	}
-	i -= int(i);
-
-	if (i == 0) return number;  
-
+	if (n == 0.0) return number; // it is an integer. no more left
+	}
+	// fractional part ----------------------------------
 	number += '.';
-	//cout << "\ni=" << i << ';';
-
-
-	while (i > int(i)) {
-		i -= int(i);
-		i *= 10;
-		//cout << "\ni,=" << i << ';';
-
-		number += char(int(i) + '0');
+//	cout << "\nn==" << n << ';';
+	int size_after_point{};
+	while (n != 0.0 && size_after_point != 10)   // until no more to add or size 10
+	{
+		number += int(n) + '0'; // take the integer part to the number string
+		n -= int(n); // remove integer part: 1.32 >> 0.32
+		//cout << "n,==" << int(n) << ";\n";
+		n *= 10.0; // move point: 0.32 >> 3.2
+		++size_after_point;
 	}
 	return number;
 }
-//////////////use
-while (true) try {
-	/*
-cout << "\ndouble_to_string: ";
-double t; cin >> t;
-cout << '\n'<< double_to_string(t);
-cout << "\nint_to_string: ";
-cout << int_to_string(t); ;
 
+//////////////test
+/*
+	double n{-2.0};
+	while (n<=3.0)
+	{
+		//cout << char(int(n) + '0') << '\n';
+
+		cout << n<< "=="<< double_to_string(n) << '\n';
+			n += 0.01;
+
+	}
 */
-}
