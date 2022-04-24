@@ -106,7 +106,6 @@ Roman int
 	Variables and Constants implemented by "Simbol_table" called "st".
 
 
-	The Numeral system doesn't have negative numbers yet
 */
 #include "Custom Header Files/roman_int.h"
 #include "Custom Header Files/std_lib_facilities.h"

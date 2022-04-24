@@ -10,7 +10,7 @@ tested from -2000 to 2000
 #include "Custom Header Files/roman_int.h"
 
 namespace Numeral_system {
-	//-------------------------------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------------------
 	string get_numeral_from_decimal(int dec, Token_stream& ts)
 	{
 		//works with rational positive numbers
