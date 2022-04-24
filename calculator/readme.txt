@@ -11,4 +11,4 @@
 	help() section
  	
       Some other minor changes were made, but can't really remember them all.
-      The core, description comment and help_list is in the "calculator.cpp" .
+      The core, description comment and help_list is in the "calculator.cpp".
