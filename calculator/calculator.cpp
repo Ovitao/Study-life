@@ -23,7 +23,8 @@
 								remainder added
 			
 --------------------------------------
-The grammar for input is:
+
+The grammar for input is: 
 
 streams switch:
 	Calculation
@@ -78,8 +79,7 @@ Element:
 Primary:
 	Number
 	Simbol
-	num_system_key literal
-	Romain_int_key literal
+	Numeral
 	'-' Primary
 	'+' Primary
 	'(' Expression ')'
@@ -91,7 +91,7 @@ Simbol:
 Number:
 	floating-point-litteral
 
-Numeral system
+Numeral
 	Binary_key string-numeral
 	Hexadecimal_key string-numeral
 	Octal_key string-numeral
@@ -106,6 +106,7 @@ Roman int
 	Variables and Constants implemented by "Simbol_table" called "st".
 
 
+	The Numeral system doesn't have negative numbers yet
 */
 #include "Custom Header Files/roman_int.h"
 #include "Custom Header Files/std_lib_facilities.h"
@@ -490,27 +491,7 @@ double declaration(Token_stream& ts)
 // scarfolding
 int main()
 try {
-	string g;
-	for (int t{ 2000 }; t > -2000; --t) {
-		g = Numeral_system::decimal_to_hexa(t);
-		cout << g << "==" << t << "==" << Numeral_system::hexa_to_decimal(g) << "=="
-			<< Numeral_system::decimal_to_binary(t) << "=="
-			<< Numeral_system::binary_to_decimal(Numeral_system::decimal_to_binary(t)) << '\n';
-		if (t != Numeral_system::hexa_to_decimal(g) ||
-			Numeral_system::binary_to_decimal(Numeral_system::decimal_to_binary(t)) != t ||
-			Numeral_system::binary_to_decimal(Numeral_system::decimal_to_binary(Numeral_system::hexa_to_decimal(g))) != t) error("error");
-	}
-	cin.get();
-	int n;
-	string binarry;
-	string octal;
-	for (int t{ 2000 }; t > -2000; --t) {
-		octal = Numeral_system::decimal_to_octal(t);
-		n = Numeral_system::octal_to_decimal(octal);
-			cout << octal << "==" << t << "==" << n << "=="
-			<< Numeral_system::decimal_to_binary(t) << '\n';
-		if (t != n) error("error");
-	}
+
 	intro(); 
 	//------===========================
 	
