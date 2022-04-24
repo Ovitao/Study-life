@@ -2,14 +2,20 @@
 
 
 //makes 321 from 123
-string revers_string(string& s);
+string revers_string(string);
 
-//low case literal
-char lc(char c);
+//get lowercase letter. if not a letter then only return
+char lc(char);
+//get uppercase letter.
+char uc(char);
 
-double string_to_double(string s);
+double string_to_double(string);
 
-//without range error, with RU leters  
-bool is_alpha(char c);
-bool is_digit(char c);
+bool is_letter(const char&);
+bool is_digit(const char&);
 //----------------------------------
+//factorial (includes check on negative and integer numbers)
+double ft(double);
+
+bool is_latin(char);
+bool is_space(char);

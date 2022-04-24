@@ -1,8 +1,9 @@
 #pragma once
 #include "std_lib_facilities.h"
 
-// represent a named value
+
 //-----------------------------------------------------------------------------
+// represents a named value
 class Simbol {
 public:
 	string name;
@@ -18,7 +19,7 @@ public:
 
 //---------------------------------------------------------------------
 
-
+//vector of variables and constants
 class Simbol_table {
 public:
 	vector<Simbol> table; //variables and constants
@@ -28,8 +29,8 @@ public:
 	bool is_declared(string);
 	double set(string, double);
 
-	double declare(string, double, bool);
-	double declare(string, double);
+	double declare_constant(const string&, const double&);
+	double declare(const string&, const double&);
 };
 
 

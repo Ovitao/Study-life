@@ -5,15 +5,16 @@
 #include "constants.cpp"
 
 //---------------------------------------------------------------------
-// to get already defined variable or constant
+// get already defined variable or constant
 double Simbol_table::get(string s)
 {
 	for (Simbol v : table)
 		if (v.name == s) return v.value;
-	error("Simbol get: undefined name ", s);
+	error("undefined name - ", s);
 }
 //---------------------------------------------------------------------
-bool Simbol_table::is_constant_value(string s) {
+bool Simbol_table::is_constant_value(string s) 
+{
 	for (Simbol v : table)
 		if (v.name == s && v.constant == true) return true;
 	return false;
@@ -22,14 +23,14 @@ bool Simbol_table::is_constant_value(string s) {
 // to assign value to an existing variable 
 double Simbol_table::set(string s, double d)
 {
-	if (is_constant_value(s)) error("Simbol set: assign to the constant ", s);
+	if (is_constant_value(s)) error("assignment to the constant - ", s);
 
 	for (Simbol& var : table)
 		if (var.name == s) {
 			var.value = d;
 			return d;
 		}
-	error("Simbol set: undefined name ", s);
+	error("undefined name - ", s);
 }
 //---------------------------------------------------------------------
 // is there already a simbol with the name declared
@@ -39,25 +40,23 @@ bool Simbol_table::is_declared(string s)
 		if (table[i].name == s) return true;
 	return false;
 }
-
 //---------------------------------------------------------------------
-//create a Constant with the 'name' and the 'value'
-double Simbol_table::declare(string s, double d, bool c)
+// create a Constant with the 'name' and the 'value'
+double Simbol_table::declare_constant(const string& s,const double& d)
 {
-	if (is_declared(s)) error("Name already declared ", s);
+	if (is_declared(s)) error("already declared name - ", s);
 
-	table.push_back(Simbol(s, d, constant));
+	table.push_back(Simbol{ s, d, bool(constant) });
 
 	return d;
 }
-
 //---------------------------------------------------------------------
 //create a Variable
-double Simbol_table::declare(string s, double d)
+double Simbol_table::declare(const string& s, const double& d)
 {
-	if (is_declared(s)) error("Name already declared ", s);
+	if (is_declared(s)) error("already declared name - ", s);
 
-	table.push_back(Simbol(s, d));
+	table.push_back(Simbol{ s, d });
 
 	return d;
 }
@@ -75,7 +74,7 @@ double Simbol_table::declare(string name, double value, bool c)
 	ofstream ofs;
 	ofs.open("literal_numbers.txt", ios_base::out);
 	if (!(ofs << newsimbol << '\n') && !ofs.eof())
-		error("Can't open the literal_numbers.txt file for writing declared constant.\n");
+		error("Can't open the literal_numbers.txt file for write_to declared constant.\n");
 	return value;
 }
 
@@ -129,12 +128,12 @@ ifstream& operator>>(ifstream& is, Simbol& s)
 	string name, v;
 	double val;
 
-	if (!(is >> name >> val >> v)) error("bad Simbol reading");
+	if (!(is >> name >> val >> v)) error("bad Simbol read_from");
 
 		if (v=="const") s = { name, val, true };
 	else 
 		if (v == "not_const") s = { name,val };
-	else error("bad Simbol const reading");
+	else error("bad Simbol const read_from");
 		return is;
 }
 //---------------------------------------------------------------------
@@ -144,7 +143,7 @@ ifstream& operator>>(ifstream& is, Simbol& s)
 	string name, v;
 	char c;
 
-	//reading the Name
+	//read_from the Name
 	if (is >> c && is_alpha(c)) { // the name starts with a letter
 		name += c;
 		while (is.get(c) && (is_alpha(c) || c == '_' || is_digit(c))) name += c;
@@ -155,7 +154,7 @@ ifstream& operator>>(ifstream& is, Simbol& s)
 		return is;
 	}
 
-	//reading value
+	//read_from value
 	while (is.get(c) && is_digit(c) || c == '.') v += c;
 	double val{ string_to_double(v) };
 	

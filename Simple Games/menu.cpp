@@ -6,6 +6,7 @@ int main()
 try {
 	while (true) {
 		cout
+			<< '\n'
 			<< "1. Rock_Paper_Scissors. \n"
 			<< "2. The_Game_Bull_and_Cows. \n"
 			<< "3. Number guessing game. \n";
