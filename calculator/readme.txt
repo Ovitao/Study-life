@@ -1,7 +1,6 @@
       Core of the program drawn from book. As specific tasks from the book or based on my desire, new functions have been added .
       As an exercise to choose how to improve the program, developed a Numeral System conversion that supports Binary, Hexadecimal, Decimal, and Octal numeral systems. 
 	Also added :
-	element() reworked
 	negative numerals support for bin, oct and hex
 	roman_int conversions
 	file streams with comands for input and output.
