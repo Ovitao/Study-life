@@ -25,7 +25,7 @@ istream& operator>>(istream& is, word& w)
 	return is;
 }
 //------------------
-void reopen(ifstream& ifs, const string& name)
+void reopen(ifstream& ifs, const string& name) // to read from the begining again
 {
 	ifs.clear();
 	ifs.close();
