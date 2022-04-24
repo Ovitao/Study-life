@@ -1,6 +1,6 @@
 /*
-doesn't work as it expected. A double value have,far beyond point, some additional value... 
- So dealing with it gives unreasonable results.For example. double(0) != int(0).
+doesn't work as expected. A double value hase, some missing value... 
+ So dealing with it gives unreasonable results. For example. double(0) != int(0).
 And when adding, say 0.01 from -2 to 3 each turn. there is some info loss to the double and as a result (by rounding up) double(3) == int(2)
 */
 
