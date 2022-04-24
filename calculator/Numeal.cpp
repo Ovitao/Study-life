@@ -154,18 +154,18 @@ namespace Numeral_system {
 		int O = decimal;
 		string octa;
 		int L = O; //what reminded
-		octa += char(fmod(L, base)) + 48; //1)
-		L -= fmod(L, base);
+		octa += narrow_cast<char>(fmod(L, base)) + 48; //1)
+		L -= narrow_cast<int>(fmod(L, base));
 
 		for (int p = 1; L != 0; ++p) {
 
-			O = L / pow(base, p);//2)
+			O = L / narrow_cast<int>(pow(base, p));//2)
 			if (O >= base)
-				O = fmod(O, base);
+				O = narrow_cast<int>(fmod(O, base));
 			if (O > 8) error("decimal_to_octal: out of range");
 			octa += char(O) + 48;
 
-			L -= pow(base, p) * O; //3)
+			L -= narrow_cast<int>(pow(base, p)) * O; //3)
 		}
 		while (octa.size() % 3 != 0 || octa[octa.size() - 1] == '7') octa += '0'; // make 077 from 77. makes positive
 
@@ -208,7 +208,7 @@ namespace Numeral_system {
 			position = 1;
 			for (int i = int(hexa.size()) - 1; i >= 0; i -= 1)
 			{
-				decimal += narrow_cast<int>(what_is(hexa[i]) * position);
+				decimal += what_is(hexa[i]) * position;
 				position *= base; // * 16 for each 4 bit quartet in binary representation 
 			}
 			return decimal;
@@ -220,7 +220,7 @@ namespace Numeral_system {
 		for (int i = int(hexa.size()) - 1; i >= 0; i -= 1)
 		{
 			digit = what_is(hexa[i]);
-			digit = digit * int(pow(base, power));
+			digit = digit * narrow_cast<int>(pow(base, power));
 			++power;
 			result += digit;
 		}
@@ -300,17 +300,17 @@ namespace Numeral_system {
 		string hexa;
 
 		int L = O;
-		hexa += what_is(int(fmod(L, base))); //1)    int 0-15
-		L -= int(fmod(L, base));
+		hexa += what_is(narrow_cast<int>(fmod(L, base))); //1)    int 0-15
+		L -= narrow_cast<int>(fmod(L, base));
 
 		for (int p = 1; L != 0; ++p) {
 
-			O = L / int(pow(base, p));//2)
+			O = L / narrow_cast<int>(pow(base, p));//2)
 			if (O >= base)
-				O = int(fmod(O, base));
+				O = narrow_cast<int>(fmod(O, base));
 			hexa += what_is(O);
 
-			L -= int(pow(base, p)) * O; //3)
+			L -= narrow_cast<int>(pow(base, p)) * O; //3)
 		}
 		
 		while (hexa.size() % 4 != 0 || hexa[hexa.size()-1] == 'F') hexa += '0'; // make 00FF from FF. makes positive
@@ -416,4 +416,15 @@ namespace Numeral_system {
 		Numeral_system::binary_to_decimal(Numeral_system::decimal_to_binary(Numeral_system::hexa_to_decimal(g))) != t) error("error");
 	}
 	
+	int n;
+string binarry;
+string octal;
+for (int t{ 2000 }; t > -2000; --t) {
+	octal = Numeral_system::decimal_to_octal(t);
+	n = Numeral_system::octal_to_decimal(octal)
+		cout << octal << "==" << t << "==" << n << "=="
+		<< Numeral_system::decimal_to_binary(t) << '\n';
+	if (t != n) error("error");
+}
 	*/
+

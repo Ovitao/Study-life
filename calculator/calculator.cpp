@@ -71,9 +71,9 @@ Term:
 
 Element:
 	Primary
-	Primary '!'
-	sqrt Primary
-	Primary '^' Primary
+	Element'!'
+	sqrt_key Element
+	Element '^' Element
 
 Primary:
 	Number
