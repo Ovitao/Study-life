@@ -1,1 +1,1 @@
-contains functions to sort in alphabetical order and merge in one 2 files or sort 1 file.  Their declarations are in the top
+contains functions to sort in alphabetical order and merge in one 2 files or sort 1 file.  Their declarations are in the top of .cpp
