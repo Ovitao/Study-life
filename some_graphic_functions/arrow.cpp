@@ -85,11 +85,15 @@ Point right_angle(Point angle_point, Point second_point, int length) // select t
 
 	double xx = second_point.x;
 	xx += angle_point.x < second_point.x ? -x : x;
+
+	length *= (second_point.y < angle_point.y&& second_point.x <= angle_point.x) ? 1 : -1;
 	point_double p = point_on_line(point_double(angle_point.x, angle_point.y), // point_double for more precision at this moment
 		point_double(xx, second_point.y),
 		second_point.y <= angle_point.y || second_point.x <= angle_point.x ? length : -length); // keep direction
 
 	return Point(round(p.x), round(p.y));
+}
+
 }
 
 //----------------------------------------------------------------------------------------
@@ -136,6 +140,7 @@ point_double right_angle(point_double angle_point, point_double second_point, in
 
 	if (b == length_line) second_point.y += 5;  // cos = 1, angle = 0 degree.
 
+	length *= (second_point.y < angle_point.y&& second_point.x <= angle_point.x) ? 1 : -1;
 	return point_on_line({ angle_point },
 		{ second_point.x + (angle_point.x < second_point.x ? -x : x), second_point.y },
 		second_point.y <= angle_point.y || second_point.x <= angle_point.x ? length : -length); // keep direction
