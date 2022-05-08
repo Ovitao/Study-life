@@ -1,8 +1,8 @@
 /*5.6.22
 Here are functions that can calculate:
  triangle arrow at the end of a line. (uses double_point to calculate and attaches Point (int) to window
- coordinate of a point for perpendicular to end point of a chosen line (double or int point)
- coordinate of a point on any abstract line that lye on 2 points (beyond points too). (double or int point)
+ coordinate of a point for perpendicular to end point of a chosen line (double or int point) (select the direction with the sign)
+ coordinate of a point on any abstract line that lye on 2 points (beyond points too). (double or int point) (select the direction with the sign)
  length betwean 2 points (double)
 */
 
@@ -56,8 +56,8 @@ Point point_on_line(Point start, Point direction, int distance)
 
 	short int sin90 = 1;
 	double sinB = (a * sin90) / Hypotenuse(b, a); // angle of a larger right triangle. the same angle for a smaller triangle. angle formed by start.x coordinate horizontal line and line on the 'start' and 'direction' points
-	double y = sinB * abs(distance); //(change for y coordinate). Opposite of smaller right triangle, where 'distance' is Hypotenuse.  (lying on the line on the 'start' and 'direction' points).
-	double x = pow(distance, 2) - pow(y, 2); // (change for x coordinate). Adjacent of smaller right triangle, where 'distance' is Hypotenuse. (lying on the line on the 'start' and 'direction' points).
+	double y = sinB * abs(distance); //(change to y coordinate). Opposite of smaller right triangle, where 'distance' is Hypotenuse.  (lying on the line on the 'start' and 'direction' points).
+	double x = pow(distance, 2) - pow(y, 2); // (change to x coordinate). Adjacent of smaller right triangle, where 'distance' is Hypotenuse. (lying on the line on the 'start' and 'direction' points).
 	x = sqrt(x);
 
 	short int sign{ +1 };
@@ -72,20 +72,22 @@ Point point_on_line(Point start, Point direction, int distance)
 point_double point_on_line(point_double start, point_double direction, int distance);
 
 // right angle to the line
-Point right_angle(Point angle_point, Point second_point, int length)
+Point right_angle(Point angle_point, Point second_point, int length) // select the direction with the sign
 {
 	double length_line = line_length(second_point, angle_point);
 	double b = abs(second_point.x - angle_point.x); // Opposite side of right triangle formed by 'angle_point' and 'second_point'
-	double x = length_line / cos(b, length_line); // change for x coordinate
+	// when cos == 0 double x gets inf, and then calculetes right
+	double x = length_line / cos(b, length_line); // change to x coordinate
 													// 'length_line' is Hypotinuza of triangle with right angle on the x coordinate horizontal line to the line formed by 'angle_point' and 'second_point'
 													// after calculeting cos(), 'length_line' becomes Adjacent side of new triangle with right angle on the main line (formed by 'angle_point' and 'second_point') to the x coordinate horizontal line
 
 	if (b == length_line) second_point.y += 5;  // cos = 1, angle = 0
 
 	double xx = second_point.x;
-	xx += angle_point.x < second_point.x ? -x : x;;
-	point_double p = point_on_line(point_double(angle_point.x, angle_point.y), // 
-		point_double(xx, second_point.y), length);
+	xx += angle_point.x < second_point.x ? -x : x;
+	point_double p = point_on_line(point_double(angle_point.x, angle_point.y), // point_double for more precision at this moment
+		point_double(xx, second_point.y),
+		second_point.y <= angle_point.y || second_point.x <= angle_point.x ? length : -length); // keep direction
 
 	return Point(round(p.x), round(p.y));
 }
@@ -111,8 +113,8 @@ point_double point_on_line(point_double start, point_double direction, int dista
 
 	short int sin90 = 1;
 	double sinB = (a * sin90) / Hypotenuse(b, a); // angle of a larger right triangle. the same angle for a smaller triangle. angle formed by start.x coordinate horizontal line and line on the 'start' and 'direction' points
-	double y = sinB * abs(distance); //(change for y coordinate). Opposite of smaller right triangle, where 'distance' is Hypotenuse.  (lying on the line on the 'start' and 'direction' points).
-	double x = pow(distance, 2) - pow(y, 2); // (change for x coordinate). Adjacent of smaller right triangle, where 'distance' is Hypotenuse. (lying on the line on the 'start' and 'direction' points).
+	double y = sinB * abs(distance); //(change to y coordinate). Opposite of smaller right triangle, where 'distance' is Hypotenuse.  (lying on the line on the 'start' and 'direction' points).
+	double x = pow(distance, 2) - pow(y, 2); // (change to x coordinate). Adjacent of smaller right triangle, where 'distance' is Hypotenuse. (lying on the line on the 'start' and 'direction' points).
 	x = sqrt(x);
 
 	short int sign{ +1 };
@@ -123,17 +125,20 @@ point_double point_on_line(point_double start, point_double direction, int dista
 }
 
 // point_double for more precision in further calculations
-point_double right_angle(point_double angle_point, point_double second_point, int length) // right angle for arrow
+point_double right_angle(point_double angle_point, point_double second_point, int length) // select the direction with the sign
 {
 	double b = abs(second_point.x - angle_point.x); // Opposite side of right triangle formed by 'angle_point' and 'second_point'
 	double length_line = line_length(angle_point, second_point);
-
-	double x = length_line / cos(b, length_line); // change for x coordinate
+	// when cos == 0 double x gets inf, and then calculetes right
+	double x = length_line / cos(b, length_line); // change to x coordinate
 												// 'length_line' is Hypotinuza of triangle with right angle on the x coordinate horizontal line to the line formed by 'angle_point' and 'second_point'
 												// after calculeting cos(), 'length_line' becomes Adjacent side of new triangle with right angle on the main line (formed by 'angle_point' and 'second_point') to the x coordinate horizontal line
 
 	if (b == length_line) second_point.y += 5;  // cos = 1, angle = 0 degree.
-	return point_on_line({ angle_point }, { second_point.x += second_point.x > angle_point.x ? -x : x, second_point.y }, length);
+
+	return point_on_line({ angle_point },
+		{ second_point.x + (angle_point.x < second_point.x ? -x : x), second_point.y },
+		second_point.y <= angle_point.y || second_point.x <= angle_point.x ? length : -length); // keep direction
 }
 
 // point_double for more precision
