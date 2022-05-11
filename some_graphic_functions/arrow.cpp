@@ -6,7 +6,7 @@ Here are functions that can calculate:
  length betwean 2 points (double)
 */
 
-#include "../../../Custom Header Files/Graphical_Headers/Simple_window.h"
+#include "angles.h"
 
 double cos(double a, double b) {
 	return a / b;
@@ -27,13 +27,6 @@ double line_length(Point first, Point end)
 
 	return Hypotenuse(a, b);
 }
-
-struct point_double {
-	point_double(double xx, double yy)
-		:x{ xx }, y{ yy }{}
-	double x{};
-	double y{};
-};
 
 double line_length(point_double first, point_double end)
 {
@@ -69,8 +62,6 @@ Point point_on_line(Point start, Point direction, int distance)
 }
 //----------------------------------------------------------------------------------------
 
-point_double point_on_line(point_double start, point_double direction, int distance);
-
 // right angle to the line
 Point right_angle(Point angle_point, Point second_point, int length) // select the direction with the sign
 {
@@ -86,24 +77,16 @@ Point right_angle(Point angle_point, Point second_point, int length) // select t
 	double xx = second_point.x;
 	xx += angle_point.x < second_point.x ? -x : x;
 
-	length *= (second_point.y < angle_point.y&& second_point.x <= angle_point.x) ? 1 : -1;
 	point_double p = point_on_line(point_double(angle_point.x, angle_point.y), // point_double for more precision at this moment
 		point_double(xx, second_point.y),
-		second_point.y <= angle_point.y || second_point.x <= angle_point.x ? length : -length); // keep direction
+		angle_point.x < second_point.x&& angle_point.y  > second_point.y ||
+		angle_point.x >= second_point.x && angle_point.y < second_point.y
+		? -length : length); // keep direction
 
 	return Point(round(p.x), round(p.y));
 }
 
-}
-
 //----------------------------------------------------------------------------------------
-Simple_window& window()
-{
-	static	Point tl{ 1000,150 };
-	static	Simple_window win{ tl,1000,900,"File diagram" };
-	return win;
-}
-
 
 // point_double for more precision in further calculations
 point_double point_on_line(point_double start, point_double direction, int distance)
@@ -140,10 +123,11 @@ point_double right_angle(point_double angle_point, point_double second_point, in
 
 	if (b == length_line) second_point.y += 5;  // cos = 1, angle = 0 degree.
 
-	length *= (second_point.y < angle_point.y&& second_point.x <= angle_point.x) ? 1 : -1;
 	return point_on_line({ angle_point },
 		{ second_point.x + (angle_point.x < second_point.x ? -x : x), second_point.y },
-		second_point.y <= angle_point.y || second_point.x <= angle_point.x ? length : -length); // keep direction
+		angle_point.x < second_point.x&& angle_point.y  > second_point.y ||
+		angle_point.x >= second_point.x && angle_point.y < second_point.y
+		? -length : length); // keep direction
 }
 
 // point_double for more precision
@@ -153,7 +137,7 @@ point_double arrow_point2(point_double arrowpoint1, point_double linepoint, int 
 }
 
 void triangle_arrow(Graph_lib::Polygon& arrow, Point target, Point end, int size)
-// uses point_double for precise inner calculations and converts it to Point int when attaches to window
+// uses point_double for precise inner calculations and converts it to Point int when adds it to Polygon
 {
 	if (size < 3) error("minimum size of arrow - 3. Selected size of arrow is", size);
 	point_double linepoint{ point_on_line(point_double(target.x,target.y), point_double(end.x,end.y), size) };
@@ -166,7 +150,6 @@ void triangle_arrow(Graph_lib::Polygon& arrow, Point target, Point end, int size
 	arrow.add(ar2);
 	arrow.set_color(Color::black);
 	arrow.set_fill_color(Color::black);
-	window().attach(arrow);
 }
 //----------------------------------------------------------------------------------------
 
