@@ -45,3 +45,11 @@ point_double right_angle(point_double angle_point, point_double second_point, in
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
+
+
+// 5.11.22
+
+Point angle_to_line(Point angle_point, Point p2, int C1_angle, int length);
+
+double as_degree(double);
+double as_radian(double);
