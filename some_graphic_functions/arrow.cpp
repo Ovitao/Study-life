@@ -5,6 +5,9 @@ Here are functions that can calculate:
  coordinate of a point on any abstract line that can lye on 2 points (beyond points too). (double or int point) (select the direction with the sign)
  length betwean 2 points (double)
 */
+// 6.23.22 Arrow now is class
+
+
 
 #include "angles.h"
 
@@ -39,7 +42,7 @@ double line_length(point_double first, point_double end)
 }
 //----------------------------------------------------------------------------------------
 Point point_on_line(Point start, Point direction, int distance)
-// finds point on any abstract line of 2 collinear points. at 'start' 'length' == 0
+// finds point on any abstract line of 2 collinear points. at 'start' 'distance' == 0
 // use negative 'distance' for finding point on the line beyond the 'start'
 {
 	double a = abs(start.y - direction.y); // Opposite side of larger right triangle formed by the 'start' and 'direction' points with right angle on the start.x coordinate horizontal line
@@ -136,22 +139,187 @@ point_double arrow_point2(point_double arrowpoint1, point_double linepoint, int 
 	return point_on_line(linepoint, arrowpoint1, -length); // take arrow point on the other side of line
 }
 
-void triangle_arrow(Graph_lib::Polygon& arrow, Point target, Point end, int size)
-// uses point_double for precise inner calculations and converts it to Point int when adds it to Polygon
+Arrow::Arrow(Point target, Point end, int size)
+	:s{ size }
 {
-	if (size < 3) error("minimum size of arrow - 3. Selected size of arrow is", size);
-	point_double linepoint{ point_on_line(point_double(target.x,target.y), point_double(end.x,end.y), size) };
-	point_double arrowpoint1{ right_angle(linepoint, point_double(target.x,target.y),  size / 3) };
-	Point ar1{ int(round(arrowpoint1.x)),int(round(arrowpoint1.y)) }; //also round up
-	arrow.add(ar1);
-	arrow.add(target);
-	point_double arrowpoint2 = arrow_point2(arrowpoint1, linepoint, size / 3);
-	Point ar2{ int(round(arrowpoint2.x)),int(round(arrowpoint2.y)) }; // + round up
-	arrow.add(ar2);
-	arrow.set_color(Color::black);
-	arrow.set_fill_color(Color::black);
+	set_color(Color::black);
+
+	if (s < 3) error("minimum size of arrow - 3. Selected size of arrow is", s);
+
+	add(end); //0
+	point_double linepoint{ point_on_line(point_double(target.x,target.y), point_double(end.x,end.y), s) };
+	add(Point(round(linepoint.x), round(linepoint.y))); // point before arrow
+	point_double arrowpoint1{ right_angle(linepoint, point_double(target.x,target.y),  s / 3) };
+	Point ar1{ int(round(arrowpoint1.x)),int(round(arrowpoint1.y)) };
+	add(ar1);
+	add(target); //3
+	point_double arrowpoint2 = arrow_point2(arrowpoint1, linepoint, s / 3);
+	Point ar2{ int(round(arrowpoint2.x)),int(round(arrowpoint2.y)) };
+	add(ar2);
+	//add(point(1));
 }
-//----------------------------------------------------------------------------------------
+void Arrow::move_target_point(int x, int y)
+{
+	// calculete new arrow
+	// point (0) the same. end
+
+	set_point(3, { target_point().x + x , target_point().y + y }); // move target
+	point_double linepoint{ point_on_line(point_double(target_point().x,target_point().y), point_double(end_point().x,end_point().y), s) };
+	set_point(1, Point(round(linepoint.x), round(linepoint.y))); // point before arrow
+	point_double arrowpoint1{ right_angle(linepoint, point_double(target_point().x,target_point().y),  s / 3) };
+	Point ar1{ int(round(arrowpoint1.x)),int(round(arrowpoint1.y)) };
+	set_point(2, ar1);
+	set_point(3, target_point());
+	point_double arrowpoint2 = arrow_point2(arrowpoint1, linepoint, s / 3);
+	Point ar2{ int(round(arrowpoint2.x)),int(round(arrowpoint2.y)) };
+	set_point(4, ar2);
+	//	set_point(5, point(1)); // point before arrow
+}
+void Arrow::move_end_point(int x, int y)
+{
+	// calculete new arrow
+   // point (1) the same
+
+	set_point(0, { end_point().x + x , end_point().y + y }); // move end
+	point_double linepoint{ point_on_line(point_double(target_point().x,target_point().y), point_double(end_point().x,end_point().y), s) };
+	set_point(1, Point(round(linepoint.x), round(linepoint.y))); // point before arrow
+	point_double arrowpoint1{ right_angle(linepoint, point_double(target_point().x,target_point().y),  s / 3) };
+	Point ar1{ int(round(arrowpoint1.x)),int(round(arrowpoint1.y)) };
+	set_point(2, ar1);
+	set_point(3, target_point());
+	point_double arrowpoint2 = arrow_point2(arrowpoint1, linepoint, s / 3);
+	Point ar2{ int(round(arrowpoint2.x)),int(round(arrowpoint2.y)) };
+	set_point(4, ar2);
+	//set_point(5, point(1)); // point before arrow
+}
+
+
+
+
+
+void Arrow::draw_lines() const
+{
+	if (fill_color().visibility())
+	{
+		fl_color(fill_color().as_int());
+		fl_polygon(point(2).x, point(2).y, point(3).x, point(3).y, point(4).x, point(4).y);
+	}
+
+	if (color().visibility())
+	{
+		fl_color(color().as_int());
+		Shape::draw_lines();
+		fl_line(point(4).x, point(4).y, point(1).x, point(1).y);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+test
+
+
+int main()
+try {
+
+
+	Point p1{ 220,100  };
+
+	Point p2{ 230,150 };
+
+	Point pp1{ 230,110 };
+
+	Point pp2{ 240,160 };
+
+	Arrow ar{ p1 ,p2 ,20 };
+	ar.set_color(Color::black);
+	ar.set_fill_color(Color::yellow);
+	window().attach(ar);
+
+	while (true)
+	{
+
+		/*Graph_lib::Line l{ pp1, pp2 };
+		l.set_color(fl_darker(fl_rgb_color(255, 0, 127)));
+		window().attach(l);
+
+		Graph_lib::Polygon p;
+		//triangle_arrow(p, pp1, pp2, 10);
+		p.set_color(fl_darker(fl_rgb_color(255, 0, 127)));
+		p.set_fill_color(fl_darker(fl_rgb_color(255, 0, 127)));
+		window().attach(p);
+		*/
+
+		//ar.move_target_point(5,0);
+		/*
+ar.move_end_point(-5, 0);
+p1.x += 5;
+pp1.x += 5;
+
+window().wait_for_button();
+	}
+	window().wait_for_button();
+}
+catch (exception& e)
+{
+	cerr << "Error: " << e.what() << '.' << endl;
+	keep_window_open("-1");
+	return -1;
+}
+catch (...)
+{
+	cout << "Some error.\n";
+	keep_window_open("-2");
+	return -2;
+}
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
