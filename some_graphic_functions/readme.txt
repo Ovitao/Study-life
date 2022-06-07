@@ -14,3 +14,7 @@ Tested:
 	- Selecting different length.
 read any_angle_to_line.cpp comments for more info.
 */-------------------------------------------------------------------------------------------------------------
+
+- Striped_closed_polyline. you can choose width, color and padding of fill lines, and get any closed polyline filled with horizontal lines
+
+*/-------------------------------------------------------------------------------------------------------------
