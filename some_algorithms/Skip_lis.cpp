@@ -17,7 +17,7 @@ Linked_List* Skip_List::lvl(int n)
 Link* Skip_List::find(const string& s)
 {
 	Link* l = nullptr;
-	for (int n{ _lvls }; !l && --n; l = lvl(n)->find(s));
+	for (int n{ _lvls }; !l && n--; l = lvl(n)->find(s));
 	return l;
 }
 
