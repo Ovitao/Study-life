@@ -1,0 +1,10 @@
+Jack {London 8} {pays good} {Phone 700.12 1,quadcopter 1200.12 3 }
+   KLinn {Brucklin 12} {No data} {Fridge 800 1,Microwave 800 1}
+Jill {Broke 19, 17} {Bad payer, always late} {Dog 800.12 1}
+ KKuzen {Kam 18} {No data} {Room_Light 18.99 1, bra 18.17 1}
+Kill {Short street 8} {Ows money } {Meet 12.17 5, Water 1.99 3}
+Loo { High Way 18} {Lives far} { Oil  77.19 3}
+Nam { narrow avenuie 12} { Dangerous place} { Tourch 17 2}
+Jo { Black City 17,89} {No data} {Paper 0.99 18, brush 1.17 5}
+Lii {Grasp street ap 18} {availavble before 3PM} { Big_Box 17.99 1}
+Oli { High Way 99} { Lives Far} {Lunch 17.88 2}

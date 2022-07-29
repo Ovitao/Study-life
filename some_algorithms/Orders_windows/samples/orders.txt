@@ -1,0 +1,10 @@
+Ivan { Montana 17 : 21} {big box} {box 7.88 7,stick 12 12}
+Grig { New york street 7} {Red hair} {cAr 777.6 1}
+Cuzen { Red street 8} { caind } {Jack_book 17.7 1}
+Petrov { Long aveniu} { far } { clips 0.2 20, pensils 8.8 12}
+Jack {London 8} {pays good} {Phone 700.12 1,quadcopter 1200.12 3 }
+Linn {Brucklin 12} {No data} {Fridge 800 1,Microwave 800 1}
+Jill {Broke 19, 17} {Bad payer, always late} {Dog 800.12 1}
+Hair {Acenui 12; cv 7} { blue hair} {Paint 12.07 2,brush 1.99 12,pensil 1.99 1 }
+Kim{Long street 12} {Lives far} {Planks 20.88 5, Yougurt 1.99 5, Milk 2.71 17}
+Brace {Till street} {Vip} {Windows 800 1}
