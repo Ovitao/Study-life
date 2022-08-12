@@ -5,6 +5,9 @@
  coordinate of a point on any abstract line that can lye on 2 points (beyond points too). (double or int point) (select the direction with the sign)
  length between 2 points (double)
 */-------------------------------------------------------------------------------------------------------------
+-new any_angle_to_line(rewriten) 
+	contains a much shorter and simpler version of any_angle_to_line()
+
 - any_angle_to_line.cpp contains function (angle_to_line) that allows:
 to calculate point for any angle to a given line. ( with given 'degree' and 'length' for the new line.)
 You can choose which side the new line will be on with sign of 'length'(inversion) or sign of 'angle' (mirror).
