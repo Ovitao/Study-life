@@ -1,0 +1,18 @@
+{can't,can not}
+{ain't,am not}
+{gimme,give me}
+{cause,because}
+{'cuz,because}
+{finna,fixing to}
+{imma,im about to}
+{gonna,going to}
+{wanna,want to}
+{gotta,got to}
+{hafta,have to"}
+{woulda,would have}
+{coulda,could have}
+{shoulda,should have}
+{ma'am,madam}
+{howdy,how do you do}
+{let's,let us}
+{y'all,you all}
