@@ -1,0 +1,13 @@
+usd = eur 0.95	
+usd = rub 90
+usd  = Yen 136.169
+usd = Yuan 6.7
+usd = Franc 0.95
+usd = Rupee 78
+usd = Pound 0.82
+usd = Ringgit 4.4
+usd =Peso 124.8
+U=Peso 54
+A=Peso 27
+Rupee = Peso 19
+Franc = Peso 22
