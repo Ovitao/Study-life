@@ -76,6 +76,7 @@ void Day::write_save_and_back()
 	//cout << "write_save_and_back ";
 	Fl_Input& v = *(reinterpret_cast<Fl_Input*>(write->child(1)));
 	note = v.value();
+	if (note.size()) primary_button()->color(Day::note_at_date);
 	write->hide();
 	write_or_read->show();
 	Fl::redraw();
