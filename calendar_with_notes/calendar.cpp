@@ -248,6 +248,7 @@ void mark_current_date(Calendar* c)
 	int month{ bt.tm_mon };
 	int day{ bt.tm_mday -1 };
 	c->years[year]->show();
+	c->current_year = year;
 	Month& m = *(reinterpret_cast<Month*>(c->years[year]->child(month)));
 	m.primary_button()->color(Day::current_date);
 

@@ -70,12 +70,12 @@ public:
 	void show_left_right();
 	~Calendar();
 	map<int, Year*> years;
+	int current_year;
 private:
 	void to_left_();
 	void to_right_();
 	void Save_and_Exit();
 	Day_of_the_week day_of_the_week{ Day_of_the_week::sunday };
-	int current_year;
 	Fl_Button to_left;
 	Fl_Button to_right;
 	Fl_Button Save_Exit;
