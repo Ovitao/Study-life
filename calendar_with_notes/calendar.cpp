@@ -247,6 +247,7 @@ void mark_current_date(Calendar* c)
 	int year{ 1900 + bt.tm_year };
 	int month{ bt.tm_mon };
 	int day{ bt.tm_mday -1 };
+	c->years[year]->show();
 	Month& m = *(reinterpret_cast<Month*>(c->years[year]->child(month)));
 	m.primary_button()->color(Day::current_date);
 
@@ -265,7 +266,6 @@ Calendar::Calendar(int x, int y, const string& title)
 		add(years[y]);
 		years[y]->hide();
 	}
-	years[min_year]->show();
 	to_left.callback([](Fl_Widget* wd, void* iw) { reinterpret_cast<Calendar*>(iw)->to_left_(); }, this);
 	to_right.callback([](Fl_Widget* wd, void* iw) { reinterpret_cast<Calendar*>(iw)->to_right_(); }, this);
 	Save_Exit.callback([](Fl_Widget* wd, void* iw) { reinterpret_cast<Calendar*>(iw)->Save_and_Exit(); }, this);
