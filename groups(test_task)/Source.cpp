@@ -313,6 +313,17 @@ bool is_created_Type_Group(const Type_Group& group)
 	return group.size();
 }
 //------------------------------------------------------------------------------
+
+void delete_ofile(wostream& os)
+{
+	wstreambuf const* coutbuf = wcout.rdbuf();
+	wstreambuf const* cerrbuf = wcerr.rdbuf();
+
+	wstreambuf const* osbuf = os.rdbuf();
+
+	if (osbuf == coutbuf || osbuf == cerrbuf)	{	}
+	else	delete& os;
+}
 int main()
 try
 {
@@ -367,9 +378,11 @@ try
 			}
 			case '2':
 			{
-				if (cout_or_ofile() << primary_group)
+				wostream& os = cout_or_ofile();
+				if (os << primary_group)
 					wcout << "Operation completed.\n";
 				else wcout << "Some Error.\n";
+				delete_ofile(os);
 				break;
 			}
 			case '3':
@@ -386,9 +399,11 @@ try
 			}
 			case '4':
 			{
-				if (cout_or_ofile() << distance_g)
+				wostream& os = cout_or_ofile();
+				if (os << distance_g)
 					wcout << "Operation completed.\n";
 				else wcout << "Some Error.\n";
+				delete_ofile(os);
 				break;
 			}
 			case '5':
@@ -405,9 +420,11 @@ try
 			}
 			case '6':
 			{
-				if (cout_or_ofile() << time_g)
+				wostream& os = cout_or_ofile();
+				if (os << time_g)
 					wcout << "Operation completed.\n";
 				else wcout << "Some Error.\n";
+				delete_ofile(os);
 				break;
 			}
 			case '7':
@@ -424,9 +441,11 @@ try
 			}
 			case '8':
 			{
-				if (cout_or_ofile() << name_g)
+				wostream& os = cout_or_ofile();
+				if (os << name_g)
 					wcout << "Operation completed.\n";
 				else wcout << "Some Error.\n";
+				delete_ofile(os);
 				break;
 			}
 			case '9':
@@ -443,9 +462,11 @@ try
 			}
 			case 'a':
 			{
-				if (cout_or_ofile() << type_g)
+				wostream& os = cout_or_ofile();
+				if (os << type_g)
 					wcout << "Operation completed.\n";
 				else wcout << "Some Error.\n";
+				delete_ofile(os);
 				break;
 			}
 			case 'b':
@@ -501,6 +522,7 @@ try
 					wcout << "Operation completed.\n";
 				else 
 					wcout << "Some Error.\n";
+				delete_ofile(os);
 				break;
 			}
 			case '0': return 0;
