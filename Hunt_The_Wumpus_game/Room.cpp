@@ -50,20 +50,10 @@ void connect(Room* r, Room* r2)
 	*null_ptr_of_tunnel(r2) = r;
 	*null_ptr_of_tunnel(r) = r2;
 }
-Room*& Room::tunnel(int n)
+Room*& Room::tunnel(unsigned n)
 {
-	switch (n)
-	{
-	case 0:
-		return tunnel1;
-	case 1:
-		return tunnel2;
-	case 2:
-		return tunnel3;
-	default:
-		error("tunnel: out of range", n);
-		break;
-	}
+		if(n<3) return tunnels[n];
+		throw range_error("tunnel: out of range: " + to_string(int(n)));
 }
 
 char nulls(Room* r)

@@ -13,7 +13,7 @@ Input_Win::Input_Win(Fl_Window* flw_owner)
 {
 	add(input_box);
 	add(Do_b);
-	Do_b.callback([](Fl_Widget* wd, void* hw) { reference_to<Wump_Game>(hw).make_turn(); }, owner);
+	Do_b.callback([](Fl_Widget* wd, void* hw) { reinterpret_cast<Wump_Game*>(hw)->make_turn(); }, owner);
 	end();
 }
 string Input_Win::get() const
@@ -548,7 +548,7 @@ Wump_Game::Wump_Game()
 	in_box_window{ this }
 {
 	add(new_game_b.get());
-	new_game_b->callback([](Fl_Widget* wd, void* hw) { reference_to<Wump_Game>(hw).new_game(); }, this);
+	new_game_b->callback([](Fl_Widget* wd, void* hw) { reinterpret_cast<Wump_Game*>(hw)->new_game(); }, this);
 	end();
 	msgs.print_message(Messages::rules);
 //	state_of_cave(this);
@@ -585,7 +585,7 @@ void Wump_Game::make_turn()
 void Wump_Game::run()
 {
 	show();
-	gui_main();
+	Fl::run();
 }
 void Wump_Game::draw()
 {

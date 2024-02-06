@@ -1,6 +1,7 @@
 #pragma once
 //#include "Hunt_The_Wumpus.h"
-#include "../../../../Custom Header Files/Graphical_Headers/Gui.h";
+#include "facilities/Graphical_Headers/Graph.h";
+//#include "facilities/std_lib_facilities.h";
 
 
 using namespace Graph_lib;
@@ -15,6 +16,9 @@ class Room : public Shape
 public:
 	Room() {
 		set_fill_color(Color::black);
+		tunnel(0) = nullptr;
+		tunnel(1) = nullptr;
+		tunnel(2) = nullptr;
 	}
 	int number{ 0 };
 	void set_point(Point);
@@ -23,11 +27,9 @@ public:
 	bool bat_here{ false };
 	bool has_pit{ false };
 	void draw_lines() const;
-	Room*& tunnel(int); // returns refference to pointer so you can change the actual pointer and have easy access;
+	Room*& tunnel(unsigned); // returns refference to pointer so you can change the actual pointer and have easy and checked access;
 private:
-	Room* tunnel1 = nullptr;
-	Room* tunnel2 = nullptr;
-	Room* tunnel3 = nullptr;
+	Room* tunnels[3];
 };
 
 
